@@ -9,6 +9,10 @@
             "email": "drefixs@gmail.com"
         }
     ],
+
+    "autoload": {
+        "psr-4": { "TonicHealthCheck\\": "src/TonicHealthCheck" }
+    },
     "minimum-stability": "dev",
     "require": {
         "doctrine/orm": "~2.5",
