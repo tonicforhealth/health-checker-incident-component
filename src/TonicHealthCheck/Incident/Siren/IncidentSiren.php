@@ -72,9 +72,7 @@ class IncidentSiren implements \SplObserver
         /** @var SubjectInterface $subject */
         foreach ($subjects as $subject) {
             try {
-                if (null === $subject->getSchedule() || $subject->getSchedule()->isDue()) {
-                    $this->getNotificationTypeI()->notify($subject, $incident);
-                }
+                $this->notifySubject($incident, $subject);
             } catch (\Exception $e) {
                 user_error($e->getMessage(), E_USER_WARNING);
             }
@@ -111,6 +109,17 @@ class IncidentSiren implements \SplObserver
     protected function setNotificationTypeI(NotificationTypeInterface $notificationTypeI)
     {
         $this->notificationTypeI = $notificationTypeI;
+    }
+
+    /**
+     * @param IncidentInterface $incident
+     * @param $subject
+     */
+    protected function notifySubject(IncidentInterface $incident, $subject)
+    {
+        if (null === $subject->getSchedule() || $subject->getSchedule()->isDue()) {
+            $this->getNotificationTypeI()->notify($subject, $incident);
+        }
     }
 
 }
