@@ -11,7 +11,7 @@
     ],
 
     "autoload": {
-        "psr-4": { "TonicHealthCheck\\": "src" }
+        "psr-4": { "TonicHealthCheck\\": "src/" }
     },
     "minimum-stability": "dev",
     "require": {
