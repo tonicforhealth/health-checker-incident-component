@@ -3,6 +3,8 @@
 namespace TonicHealthCheck\Incident;
 
 use Doctrine\Common\EventSubscriber;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 
@@ -55,6 +57,7 @@ class IncidentEventSubscriber implements EventSubscriber
     {
         return array(
             Events::preUpdate,
+            Events::prePersist,
         );
     }
 
@@ -67,6 +70,18 @@ class IncidentEventSubscriber implements EventSubscriber
         $entity = $args->getObject();
 
         if ($entity instanceof IncidentInterface && $args->hasChangedField('status')) {
+            $this->preUpdateIncidentStatus($entity);
+            $entity->notify();
+        }
+    }
+
+    /**
+     * @param LifecycleEventArgs $args
+     */
+    public function prePersist(LifecycleEventArgs $args)
+    {
+        $entity = $args->getObject();
+        if ($entity instanceof IncidentInterface && $entity->getId() === null) {
             $this->preUpdateIncidentStatus($entity);
             $entity->notify();
         }
