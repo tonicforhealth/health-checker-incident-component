@@ -44,34 +44,9 @@ class RequestNotificationType implements NotificationTypeInterface
     {
         $serverUrl = $subject;
         if ($incident->getStatus() != IncidentInterface::STATUS_OK) {
-            $response  = $this->getHttpClient()->post(
-                $subject.$this->getResourceUrl(),
-                ['Content-type' => 'application/json'],
-                json_encode(
-                    [
-                        'name' => $incident->getIdent(),
-                        'message' => $incident->getMessage(),
-                        'status' => 1,
-                        "visible" => 1,
-                    ]
-                )
-            );
-            if ($response) {
-                $data = json_decode($response->getBody()->getContents());
-                if ($data->data->id) {
-                    $incident->setExternalId($data->data->id);
-                }
-            }
+            $this->incidentUpdate($incident, $serverUrl);
         } else {
-            $this->getHttpClient()->put(
-                $subject.$this->getResourceUrl().'/'.$incident->getExternalId(),
-                ['Content-type' => 'application/json'],
-                json_encode(
-                    [
-                        'status' => 4,
-                    ]
-                )
-            );
+            $this->incidentCreate($incident, $serverUrl);
         }
     }
 
@@ -108,4 +83,46 @@ class RequestNotificationType implements NotificationTypeInterface
         $this->resourceUrl = $resourceUrl;
     }
 
+    /**
+     * @param IncidentInterface $incident
+     * @param $serverUrl
+     */
+    protected function incidentUpdate(IncidentInterface $incident, $serverUrl)
+    {
+        $response = $this->getHttpClient()->post(
+            $serverUrl.$this->getResourceUrl(),
+            ['Content-type' => 'application/json'],
+            json_encode(
+                [
+                    'name' => $incident->getIdent(),
+                    'message' => $incident->getMessage(),
+                    'status' => 1,
+                    "visible" => 1,
+                ]
+            )
+        );
+        if ($response) {
+            $data = json_decode($response->getBody()->getContents());
+            if ($data->data->id) {
+                $incident->setExternalId($data->data->id);
+            }
+        }
+    }
+
+    /**
+     * @param IncidentInterface $incident
+     * @param $serverUrl
+     */
+    protected function incidentCreate(IncidentInterface $incident, $serverUrl)
+    {
+        $this->getHttpClient()->put(
+            $serverUrl.$this->getResourceUrl().'/'.$incident->getExternalId(),
+            ['Content-type' => 'application/json'],
+            json_encode(
+                [
+                    'status' => 4,
+                ]
+            )
+        );
+    }
 }

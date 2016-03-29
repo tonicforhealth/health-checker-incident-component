@@ -19,25 +19,28 @@ class IncidentSiren implements \SplObserver
     /**
      * @var NotificationTypeInterface
      */
-    protected $notificationTypeInstance;
+    protected $notificationTypeI;
 
     /**
      * email or tel numbers
      *
      * @var SubjectCollection
      */
-    protected $subjects = [];
+    protected $subjects;
 
 
     /**
      * IncidentSiren constructor.
-     * @param NotificationTypeInterface $notificationTypeInstance
-     * @param null|array                $subjects
+     * @param NotificationTypeInterface $notificationTypeI
+     * @param null|SubjectCollection    $subjects
      * @throws IncidentSirenException
      */
-    public function __construct(NotificationTypeInterface $notificationTypeInstance, SubjectCollection $subjects = null)
+    public function __construct(NotificationTypeInterface $notificationTypeI, SubjectCollection $subjects = null)
     {
-        $this->setNotificationTypeInstance($notificationTypeInstance);
+        $this->setNotificationTypeI($notificationTypeI);
+        if (null === $subjects) {
+            $subjects = new SubjectCollection();
+        }
         $this->setSubjects($subjects);
     }
 
@@ -70,7 +73,7 @@ class IncidentSiren implements \SplObserver
         foreach ($subjects as $subject) {
             try {
                 if (null === $subject->getSchedule() || $subject->getSchedule()->isDue()) {
-                    $this->getNotificationTypeInstance()->notify($subject, $incident);
+                    $this->getNotificationTypeI()->notify($subject, $incident);
                 }
             } catch (\Exception $e) {
                 user_error($e->getMessage(), E_USER_WARNING);
@@ -81,9 +84,9 @@ class IncidentSiren implements \SplObserver
     /**
      * @return NotificationTypeInterface
      */
-    public function getNotificationTypeInstance()
+    public function getNotificationTypeI()
     {
-        return $this->notificationTypeInstance;
+        return $this->notificationTypeI;
     }
 
     /**
@@ -103,11 +106,11 @@ class IncidentSiren implements \SplObserver
     }
 
     /**
-     * @param NotificationTypeInterface $notificationTypeInstance
+     * @param NotificationTypeInterface $notificationTypeI
      */
-    protected function setNotificationTypeInstance(NotificationTypeInterface $notificationTypeInstance)
+    protected function setNotificationTypeI(NotificationTypeInterface $notificationTypeI)
     {
-        $this->notificationTypeInstance = $notificationTypeInstance;
+        $this->notificationTypeI = $notificationTypeI;
     }
 
 }

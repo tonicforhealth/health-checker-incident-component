@@ -67,24 +67,7 @@ class IncidentEventSubscriber implements EventSubscriber
         $entity = $args->getObject();
 
         if ($entity instanceof IncidentInterface && $args->hasChangedField('status')) {
-            /** @var IncidentSiren $incidentI */
-            foreach ($this->getIncidentSirenCollection() as $incidentI) {
-                if (isset(static::$typeEventPolitic[$entity->getType()])) {
-                    $isNotificationAllow = false;
-                    foreach (static::$typeEventPolitic[$entity->getType()] as $notificationType) {
-                        if (is_a($incidentI->getNotificationTypeInstance(), $notificationType)) {
-                            $isNotificationAllow = true;
-                            break;
-                        }
-                    }
-
-                    if ($isNotificationAllow === true) {
-
-                        $entity->attach($incidentI);
-                    }
-                }
-            }
-
+            $this->preUpdateIncidentStatus($entity);
             $entity->notify();
         }
     }
@@ -103,5 +86,39 @@ class IncidentEventSubscriber implements EventSubscriber
     protected function setIncidentSirenCollection(IncidentSirenCollection $incidentSiren)
     {
         $this->incidentSirenCollection = $incidentSiren;
+    }
+
+    /**
+     * @param IncidentInterface $entity
+     */
+    protected function preUpdateIncidentStatus(IncidentInterface $entity)
+    {
+        /** @var IncidentSiren $incidentI */
+        foreach ($this->getIncidentSirenCollection() as $incidentI) {
+            if (isset(static::$typeEventPolitic[$entity->getType()])
+                && $this->checkIsNotificationAllow($entity->getType(), $incidentI->getNotificationTypeI())
+            ) {
+                $entity->attach($incidentI);
+            }
+        }
+    }
+
+    /**
+     * @param $type
+     * @param $notificationTypeI
+     * @return bool
+     */
+    protected function checkIsNotificationAllow($type, $notificationTypeI)
+    {
+        $isNotificationAllow = false;
+
+        foreach (static::$typeEventPolitic[$type] as $notificationType) {
+            if (is_a($notificationTypeI, $notificationType)) {
+                $isNotificationAllow = true;
+                break;
+            }
+        }
+
+        return $isNotificationAllow;
     }
 }
