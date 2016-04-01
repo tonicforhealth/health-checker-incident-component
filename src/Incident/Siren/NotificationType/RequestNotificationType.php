@@ -44,9 +44,9 @@ class RequestNotificationType implements NotificationTypeInterface
     {
         $serverUrl = $subject;
         if ($incident->getStatus() != IncidentInterface::STATUS_OK) {
-            $this->incidentUpdate($incident, $serverUrl);
-        } else {
             $this->incidentCreate($incident, $serverUrl);
+        } else {
+            $this->incidentUpdate($incident, $serverUrl);
         }
     }
 
@@ -87,7 +87,7 @@ class RequestNotificationType implements NotificationTypeInterface
      * @param IncidentInterface $incident
      * @param $serverUrl
      */
-    protected function incidentUpdate(IncidentInterface $incident, $serverUrl)
+    protected function incidentCreate(IncidentInterface $incident, $serverUrl)
     {
         $response = $this->getHttpClient()->post(
             $serverUrl.$this->getResourceUrl(),
@@ -113,7 +113,7 @@ class RequestNotificationType implements NotificationTypeInterface
      * @param IncidentInterface $incident
      * @param $serverUrl
      */
-    protected function incidentCreate(IncidentInterface $incident, $serverUrl)
+    protected function incidentUpdate(IncidentInterface $incident, $serverUrl)
     {
         $this->getHttpClient()->put(
             $serverUrl.$this->getResourceUrl().'/'.$incident->getExternalId(),
