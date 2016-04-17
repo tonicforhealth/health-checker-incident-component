@@ -2,15 +2,16 @@
 
 namespace TonicHealthCheck\Incident\Siren;
 
+use Exception;
 use SplSubject;
 use TonicHealthCheck\Incident\IncidentInterface;
 use TonicHealthCheck\Incident\Siren\NotificationType\NotificationTypeInterface;
+use TonicHealthCheck\Incident\Siren\Subject\Subject;
 use TonicHealthCheck\Incident\Siren\Subject\SubjectCollection;
 use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
 
 /**
  * Class IncidentSiren
- * @package TonicHealthCheck\Incident\Siren
  */
 class IncidentSiren implements \SplObserver
 {
@@ -28,12 +29,11 @@ class IncidentSiren implements \SplObserver
      */
     protected $subjects;
 
-
     /**
      * IncidentSiren constructor.
+     *
      * @param NotificationTypeInterface $notificationTypeI
      * @param null|SubjectCollection    $subjects
-     * @throws IncidentSirenException
      */
     public function __construct(NotificationTypeInterface $notificationTypeI, SubjectCollection $subjects = null)
     {
@@ -46,16 +46,19 @@ class IncidentSiren implements \SplObserver
 
     /**
      * Receive update from subject
+     *
      * @link http://php.net/manual/en/splobserver.update.php
+     *
      * @param SplSubject $subject <p>
-     * The <b>SplSubject</b> notifying the observer of an update.
-     * </p>
+     *                            The <b>SplSubject</b> notifying the observer of an update.
+     *                            </p>
+     *
      * @return void
+     *
      * @since 5.1.0
      */
     public function update(SplSubject $subject)
     {
-
         if ($subject instanceof IncidentInterface) {
             /** @var IncidentInterface $subject */
                 $this->notify($subject);
@@ -68,13 +71,13 @@ class IncidentSiren implements \SplObserver
      */
     public function notify(IncidentInterface $incident, $subjects = null)
     {
-        $subjects = null === $subjects? $this->getSubjects(): $subjects;
+        $subjects = null === $subjects ? $this->getSubjects() : $subjects;
         /** @var SubjectInterface $subject */
         foreach ($subjects as $subject) {
             try {
                 $this->notifySubject($incident, $subject);
-            } catch (\Exception $e) {
-                user_error($e->getMessage(), E_USER_WARNING);
+            } catch (Exception $e) {
+                $this->showUserError($e);
             }
         }
     }
@@ -113,7 +116,7 @@ class IncidentSiren implements \SplObserver
 
     /**
      * @param IncidentInterface $incident
-     * @param $subject
+     * @param Subject           $subject
      */
     protected function notifySubject(IncidentInterface $incident, $subject)
     {
@@ -122,4 +125,11 @@ class IncidentSiren implements \SplObserver
         }
     }
 
+    /**
+     * @param Exception $errorException
+     */
+    protected function showUserError(Exception $errorException)
+    {
+        user_error($errorException->getMessage(), E_USER_WARNING);
+    }// @codeCoverageIgnore
 }

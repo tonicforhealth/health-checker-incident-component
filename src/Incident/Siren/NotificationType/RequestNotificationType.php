@@ -3,8 +3,7 @@
 namespace TonicHealthCheck\Incident\Siren\NotificationType;
 
 use Http\Client\Common\HttpMethodsClient;
-use Http\Discovery\StreamFactoryDiscovery;
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use TonicHealthCheck\Incident\IncidentInterface;
 use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
 
@@ -101,9 +100,11 @@ class RequestNotificationType implements NotificationTypeInterface
                 ]
             )
         );
-        if ($response) {
+
+        if ($response instanceof ResponseInterface) {
+
             $data = json_decode($response->getBody()->getContents());
-            if ($data->data->id) {
+            if (isset($data->data->id)) {
                 $incident->setExternalId($data->data->id);
             }
         }

@@ -29,7 +29,7 @@ class FileNotificationType implements NotificationTypeInterface
     public function notify(SubjectInterface $subject, IncidentInterface $incident)
     {
         if ($incident->getStatus() != IncidentInterface::STATUS_OK) {
-            file_put_contents($this->getPathMessage().$subject, $incident->getMessage());
+            file_put_contents($this->getSubjectNotifyFilePath($subject), $incident->getMessage());
         }
     }
 
@@ -50,5 +50,14 @@ class FileNotificationType implements NotificationTypeInterface
             throw FileNotificationTypeException::dirForMessageDoesNotWritable($pathMessage);
         }
         $this->pathMessage = rtrim($pathMessage, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * @param SubjectInterface $subject
+     * @return string
+     */
+    public function getSubjectNotifyFilePath(SubjectInterface $subject)
+    {
+        return $this->getPathMessage().$subject;
     }
 }
