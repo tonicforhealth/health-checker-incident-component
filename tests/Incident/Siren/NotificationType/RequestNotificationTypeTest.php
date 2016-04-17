@@ -2,7 +2,6 @@
 
 namespace TonicHealthCheck\Test\Incident\Siren\NotificationType;
 
-use Cron\CronExpression;
 use Http\Client\Common\HttpMethodsClient;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Mock\Client as MockClient;
@@ -12,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use TonicHealthCheck\Incident\IncidentInterface;
 use TonicHealthCheck\Incident\Siren\NotificationType\RequestNotificationType;
-use TonicHealthCheck\Incident\Siren\Subject\Subject;
+use TonicHealthCheck\Test\Incident\IncidentCreateTrait;
 use TonicHealthCheck\Test\Incident\Subject\SubjectCreateTrait;
 
 /**
@@ -21,6 +20,7 @@ use TonicHealthCheck\Test\Incident\Subject\SubjectCreateTrait;
 class RequestNotificationTypeTest extends PHPUnit_Framework_TestCase
 {
     use SubjectCreateTrait;
+    use IncidentCreateTrait;
 
     /**
      * @var PHPUnit_Framework_MockObject_MockObject|MockClient
@@ -73,7 +73,7 @@ class RequestNotificationTypeTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->getResourceUrl(), $this->getRequestNType()->getResourceUrl());
 
-        $incident = $this->getMockBuilder(IncidentInterface::class)->getMock();
+        $incident = $this->createIncidentMock();
 
         $incident
             ->expects($this->any())
@@ -99,9 +99,15 @@ class RequestNotificationTypeTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('post')
             ->with(
-                $this->identicalTo('target/incident'),
+                $this->identicalTo($subject->getTarget().$this->getResourceUrl()),
                 $this->identicalTo(['Content-type' => 'application/json']),
-                $this->identicalTo('{"name":null,"message":null,"status":1,"visible":1}')
+                $this->identicalTo(
+                    sprintf(
+                        '{"name":"%s","message":"%s","status":1,"visible":1}',
+                        $incident->getIdent(),
+                        $incident->getMessage()
+                        )
+                )
             );
 
         $this->getRequestNType()->notify($subject, $incident);
@@ -112,7 +118,7 @@ class RequestNotificationTypeTest extends PHPUnit_Framework_TestCase
      */
     public function testNotifyUpdate()
     {
-        $incident = $this->getMockBuilder(IncidentInterface::class)->getMock();
+        $incident = $this->createIncidentMock();
 
         $incident->expects($this->any())->method('getStatus')->willReturn(IncidentInterface::STATUS_OK);
 
@@ -122,7 +128,7 @@ class RequestNotificationTypeTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('put')
             ->with(
-                $this->identicalTo('target/incident/'),
+                $this->identicalTo($subject->getTarget().$this->getResourceUrl().'/'),
                 $this->identicalTo(['Content-type' => 'application/json']),
                 $this->identicalTo('{"status":4}')
             );

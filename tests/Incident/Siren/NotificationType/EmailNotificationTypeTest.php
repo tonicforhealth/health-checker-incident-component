@@ -9,6 +9,7 @@ use Swift_Message;
 use Swift_Transport;
 use TonicHealthCheck\Incident\IncidentInterface;
 use TonicHealthCheck\Incident\Siren\NotificationType\EmailNotificationType;
+use TonicHealthCheck\Test\Incident\IncidentCreateTrait;
 use TonicHealthCheck\Test\Incident\Subject\SubjectCreateTrait;
 
 /**
@@ -17,6 +18,7 @@ use TonicHealthCheck\Test\Incident\Subject\SubjectCreateTrait;
 class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
 {
     use SubjectCreateTrait;
+    use IncidentCreateTrait;
     /**
      * @var string
      */
@@ -42,7 +44,8 @@ class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->setMailer($this
+        $this->setMailer(
+            $this
             ->getMockBuilder(Swift_Mailer::class)
             ->disableOriginalConstructor()
             ->getMock()
@@ -62,7 +65,7 @@ class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
      */
     public function testNotify()
     {
-        $incident = $this->getMockBuilder(IncidentInterface::class)->getMock();
+        $incident = $this->createIncidentMock();
 
         $incident->expects($this->any())->method('getStatus')->willReturn(IncidentInterface::STATUS_OK + 1);
 
@@ -139,6 +142,7 @@ class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
 
     /**
      * @param Swift_Message $message
+     *
      * @return \Closure
      */
     protected function isMessageSame(Swift_Message $message)
@@ -154,6 +158,7 @@ class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
     /**
      * @param $subject
      * @param $incident
+     *
      * @return Swift_Message
      */
     protected function createMessage($subject, $incident)

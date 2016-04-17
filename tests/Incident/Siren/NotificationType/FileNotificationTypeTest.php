@@ -5,6 +5,7 @@ namespace TonicHealthCheck\Test\Incident\Siren\NotificationType;
 use PHPUnit_Framework_TestCase;
 use TonicHealthCheck\Incident\IncidentInterface;
 use TonicHealthCheck\Incident\Siren\NotificationType\FileNotificationType;
+use TonicHealthCheck\Test\Incident\IncidentCreateTrait;
 use TonicHealthCheck\Test\Incident\Subject\SubjectCreateTrait;
 
 /**
@@ -13,6 +14,7 @@ use TonicHealthCheck\Test\Incident\Subject\SubjectCreateTrait;
 class FileNotificationTypeTest extends PHPUnit_Framework_TestCase
 {
     use SubjectCreateTrait;
+    use IncidentCreateTrait;
 
     /**
      * @var string
@@ -23,7 +25,6 @@ class FileNotificationTypeTest extends PHPUnit_Framework_TestCase
      * @var FileNotificationType;
      */
     private $fileNType;
-
 
     /**
      * set up file notification env
@@ -40,7 +41,7 @@ class FileNotificationTypeTest extends PHPUnit_Framework_TestCase
      */
     public function testNotify()
     {
-        $incident = $this->getMockBuilder(IncidentInterface::class)->getMock();
+        $incident = $this->createIncidentMock();
 
         $incident->expects($this->any())->method('getStatus')->willReturn(IncidentInterface::STATUS_OK + 1);
 
@@ -53,6 +54,7 @@ class FileNotificationTypeTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test Message Not Writable throw Exception
+     *
      * @expectedException \TonicHealthCheck\Incident\Siren\NotificationType\FileNotificationTypeException
      * @expectedExceptionMessage Notification directory /test343/tes232 doesn't writable
      */

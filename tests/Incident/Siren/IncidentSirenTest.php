@@ -2,7 +2,6 @@
 
 namespace TonicHealthCheck\Test\Incident\Siren;
 
-use Cron\CronExpression;
 use Exception;
 use PHPUnit_Framework_Error_Warning;
 use PHPUnit_Framework_TestCase;
@@ -94,5 +93,4 @@ class IncidentSirenTest extends PHPUnit_Framework_TestCase
     {
         $this->incidentSiren = $incidentSiren;
     }
-
 }
