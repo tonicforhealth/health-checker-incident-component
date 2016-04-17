@@ -154,7 +154,7 @@ class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
     /**
      * @param $subject
      * @param $incident
-     * @return \Swift_Mime_MimePart
+     * @return Swift_Message
      */
     protected function createMessage($subject, $incident)
     {
