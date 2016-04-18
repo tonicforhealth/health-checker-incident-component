@@ -7,7 +7,6 @@ use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
 
 /**
  * Class FileNotificationType
- * @package TonicHealthCheck\Incident\Siren\NotificationType;
  */
 class FileNotificationType implements NotificationTypeInterface
 {
@@ -15,6 +14,7 @@ class FileNotificationType implements NotificationTypeInterface
 
     /**
      * FileNotificationType constructor.
+     *
      * @param string $pathMessage
      */
     public function __construct($pathMessage)
@@ -54,6 +54,7 @@ class FileNotificationType implements NotificationTypeInterface
 
     /**
      * @param SubjectInterface $subject
+     *
      * @return string
      */
     public function getSubjectNotifyFilePath(SubjectInterface $subject)

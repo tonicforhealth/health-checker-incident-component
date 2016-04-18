@@ -4,12 +4,12 @@ namespace TonicHealthCheck\Incident\Siren\NotificationType;
 
 /**
  * Class FileNotificationTypeExeption
- * @package TonicHealthCheck\Incident\Siren\NotificationType
  */
 class FileNotificationTypeException extends \Exception
 {
     /**
      * @param string $dir
+     *
      * @return FileNotificationTypeException
      */
     public static function dirForMessageDoesNotWritable($dir)

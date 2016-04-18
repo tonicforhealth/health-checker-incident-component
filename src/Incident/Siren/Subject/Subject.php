@@ -6,7 +6,6 @@ use Cron\CronExpression;
 
 /**
  * Class Subject
- * @package TonicHealthCheck\Incident\Siren\Subject
  */
 class Subject implements SubjectInterface
 {
@@ -22,6 +21,7 @@ class Subject implements SubjectInterface
 
     /**
      * Subject constructor.
+     *
      * @param string              $target
      * @param null|CronExpression $schedule
      */
@@ -38,8 +38,6 @@ class Subject implements SubjectInterface
     {
         return $this->target;
     }
-
-
 
     /**
      * @return CronExpression

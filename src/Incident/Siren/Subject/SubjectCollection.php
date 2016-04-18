@@ -1,11 +1,11 @@
 <?php
+
 namespace TonicHealthCheck\Incident\Siren\Subject;
 
 use Collections\Collection;
 
 /**
  * Class SubjectCollection
- * @package TonicHealthCheck\Incident\Siren\Subject
  */
 class SubjectCollection extends Collection
 {

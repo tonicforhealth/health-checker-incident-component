@@ -9,7 +9,6 @@ use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
 
 /**
  * Class RequestNotificationType
- * @package TonicHealthCheck\Incident\Siren\NotificationType;
  */
 class RequestNotificationType implements NotificationTypeInterface
 {
@@ -25,6 +24,7 @@ class RequestNotificationType implements NotificationTypeInterface
 
     /**
      * RequestNotificationType constructor.
+     *
      * @param HttpMethodsClient $httpClient
      * @param string            $resourceUrl
      */
@@ -32,7 +32,6 @@ class RequestNotificationType implements NotificationTypeInterface
     {
         $this->setHttpClient($httpClient);
         $this->setResourceUrl($resourceUrl);
-
     }
 
     /**
@@ -65,7 +64,6 @@ class RequestNotificationType implements NotificationTypeInterface
         return $this->resourceUrl;
     }
 
-
     /**
      * @param HttpMethodsClient $httpClient
      */
@@ -96,13 +94,12 @@ class RequestNotificationType implements NotificationTypeInterface
                     'name' => $incident->getIdent(),
                     'message' => $incident->getMessage(),
                     'status' => 1,
-                    "visible" => 1,
+                    'visible' => 1,
                 ]
             )
         );
 
         if ($response instanceof ResponseInterface) {
-
             $data = json_decode($response->getBody()->getContents());
             if (isset($data->data->id)) {
                 $incident->setExternalId($data->data->id);

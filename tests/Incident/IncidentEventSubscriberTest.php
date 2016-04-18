@@ -50,26 +50,22 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
      */
     public function testPreUpdate()
     {
-        $argsMock = $this->getMockBuilder(PreUpdateEventArgs::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $argsMock = $this->createEventArgsMock(PreUpdateEventArgs::class);
+
         $entity = $this->getMock(IncidentInterface::class);
 
         $argsMock
             ->expects($this->once())
             ->method('getObject')
             ->willReturn($entity);
+
         $argsMock
             ->expects($this->once())
             ->method('hasChangedField')
             ->with('status')
             ->willReturn(true);
 
-        $entity->expects($this->once())->method('notify');
-        $entity
-            ->expects($this->any())
-            ->method('getType')
-            ->willReturn(IncidentInterface::TYPE_URGENT);
+        $this->setUpExpectsForEntity($entity);
 
         $this->getIncidentEventSubscriber()->preUpdate($argsMock);
     }
@@ -79,9 +75,8 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
      */
     public function testPrePersist()
     {
-        $argsMock = $this->getMockBuilder(LifecycleEventArgs::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $argsMock = $this->createEventArgsMock(LifecycleEventArgs::class);
+
         $entity = $this->getMock(IncidentInterface::class);
 
         $argsMock
@@ -89,27 +84,23 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
             ->method('getObject')
             ->willReturn($entity);
 
-        $entity
-            ->expects($this->once())
-            ->method('getId')
-            ->willReturn(null);
-
-        $entity->expects($this->once())->method('notify');
-        $entity
-            ->expects($this->any())
-            ->method('getType')
-            ->willReturn(IncidentInterface::TYPE_URGENT);
+        $this->setUpExpectsForEntity($entity);
 
         $this->getIncidentEventSubscriber()->prePersist($argsMock);
     }
 
+    /**
+     * Test get subscribed events
+     */
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            $this->getIncidentEventSubscriber()->getSubscribedEvents(), [
-            Events::preUpdate,
-            Events::prePersist,
-        ]);
+            $this->getIncidentEventSubscriber()->getSubscribedEvents(),
+            [
+                Events::preUpdate,
+                Events::prePersist,
+            ]
+        );
     }
 
     /**
@@ -165,5 +156,35 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
             );
 
         return $incidentSiren;
+    }
+
+    /**
+     * @param $eventArgsClassName
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function createEventArgsMock($eventArgsClassName)
+    {
+        $argsMock = $this->getMockBuilder($eventArgsClassName)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        return $argsMock;
+    }
+
+    /**
+     * @param $entity
+     */
+    protected function setUpExpectsForEntity($entity)
+    {
+        $entity
+            ->expects($this->any())
+            ->method('getId')
+            ->willReturn(null);
+
+        $entity->expects($this->once())->method('notify');
+        $entity
+            ->expects($this->any())
+            ->method('getType')
+            ->willReturn(IncidentInterface::TYPE_URGENT);
     }
 }

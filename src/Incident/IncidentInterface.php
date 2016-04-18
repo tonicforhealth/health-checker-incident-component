@@ -4,7 +4,6 @@ namespace TonicHealthCheck\Incident;
 
 /**
  * Interface IncidentInterface
- * @package TonicHealthCheck\Incident
  */
 interface IncidentInterface extends \SplSubject
 {
@@ -56,14 +55,14 @@ interface IncidentInterface extends \SplSubject
     /**
      * Get externalId
      *
-     * @return integer
+     * @return int
      */
     public function getExternalId();
 
     /**
      * Set externalId
      *
-     * @param integer $externalId
+     * @param int $externalId
      */
     public function setExternalId($externalId);
 

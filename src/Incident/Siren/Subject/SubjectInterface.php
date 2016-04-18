@@ -1,11 +1,11 @@
 <?php
+
 namespace TonicHealthCheck\Incident\Siren\Subject;
 
 use Cron\CronExpression;
 
 /**
  * Class Subject
- * @package TonicHealthCheck\Incident\Siren\Subject
  */
 interface SubjectInterface
 {

@@ -9,11 +9,10 @@ use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
 
 /**
  * Class EmailNotificationType
- * @package TonicHealthCheck\Incident\Siren\NotificationType;
  */
 class EmailNotificationType implements NotificationTypeInterface
 {
-    const EMAIL_BODY_T = "%s";
+    const EMAIL_BODY_T = '%s';
     const EMAIL_SUBJECT_T = 'Health Check Incident:%s';
 
     /**
@@ -33,6 +32,7 @@ class EmailNotificationType implements NotificationTypeInterface
 
     /**
      * EmailNotificationType constructor.
+     *
      * @param Swift_Mailer $mailer
      * @param string       $from
      * @param string       $fromName
@@ -45,7 +45,7 @@ class EmailNotificationType implements NotificationTypeInterface
     }
 
     /**
-     * @param SubjectInterface $subject
+     * @param SubjectInterface  $subject
      * @param IncidentInterface $incident
      */
     public function notify(SubjectInterface $subject, IncidentInterface $incident)

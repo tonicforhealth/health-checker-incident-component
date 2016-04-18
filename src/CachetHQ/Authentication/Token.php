@@ -2,7 +2,6 @@
 
 namespace TonicHealthCheck\CachetHQ\Authentication;
 
-use Http\Client\Plugin\AuthenticationPlugin;
 use Http\Message\Authentication;
 use Psr\Http\Message\RequestInterface;
 

@@ -121,6 +121,16 @@
             "install-path": "vendor/php-http/promise",
             "installer": "composer"
         },
+        "phpdocumentor/reflection-docblock": {
+            "install-path": "vendor/phpdocumentor/reflection-docblock",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "phpspec/prophecy": {
+            "install-path": "vendor/phpspec/prophecy",
+            "installer": "composer",
+            "env": "dev"
+        },
         "phpunit/php-code-coverage": {
             "install-path": "vendor/phpunit/php-code-coverage",
             "installer": "composer",
@@ -215,6 +225,11 @@
         },
         "sebastian/exporter": {
             "install-path": "vendor/sebastian/exporter",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "sebastian/global-state": {
+            "install-path": "vendor/sebastian/global-state",
             "installer": "composer",
             "env": "dev"
         },

@@ -6,7 +6,6 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-
 use TonicHealthCheck\Incident\Siren\IncidentSiren;
 use TonicHealthCheck\Incident\Siren\IncidentSirenCollection;
 use TonicHealthCheck\Incident\Siren\NotificationType\EmailNotificationType;
@@ -15,11 +14,10 @@ use TonicHealthCheck\Incident\Siren\NotificationType\RequestNotificationType;
 
 /**
  * Class IncidentEventSubscriber
- * @package TonicHealthCheck\Incident
  */
 class IncidentEventSubscriber implements EventSubscriber
 {
-    protected static $typeEventPolitic =[
+    protected static $typeEventPolitic = [
         IncidentInterface::TYPE_URGENT => [
             EmailNotificationType::class,
             FileNotificationType::class,
@@ -42,6 +40,7 @@ class IncidentEventSubscriber implements EventSubscriber
 
     /**
      * IncidentHandler constructor.
+     *
      * @param IncidentSirenCollection $incidentSirenC
      */
     public function __construct($incidentSirenC)
@@ -65,7 +64,6 @@ class IncidentEventSubscriber implements EventSubscriber
      */
     public function preUpdate(PreUpdateEventArgs $args)
     {
-
         $entity = $args->getObject();
 
         if ($entity instanceof IncidentInterface && $args->hasChangedField('status')) {
@@ -120,6 +118,7 @@ class IncidentEventSubscriber implements EventSubscriber
     /**
      * @param $type
      * @param $notificationTypeI
+     *
      * @return bool
      */
     protected function checkIsNotificationAllow($type, $notificationTypeI)
