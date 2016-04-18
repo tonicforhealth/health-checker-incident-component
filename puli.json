@@ -71,13 +71,11 @@
         },
         "padraic/humbug_get_contents": {
             "install-path": "vendor/padraic/humbug_get_contents",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "padraic/phar-updater": {
             "install-path": "vendor/padraic/phar-updater",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "paragonie/random_compat": {
             "install-path": "vendor/paragonie/random_compat",
@@ -89,8 +87,7 @@
         },
         "php-http/discovery": {
             "install-path": "vendor/php-http/discovery",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "php-http/guzzle6-adapter": {
             "install-path": "vendor/php-http/guzzle6-adapter",
@@ -180,8 +177,7 @@
         },
         "puli/cli": {
             "install-path": "vendor/puli/cli",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "puli/composer-plugin": {
             "install-path": "vendor/puli/composer-plugin",
@@ -193,8 +189,7 @@
         },
         "puli/manager": {
             "install-path": "vendor/puli/manager",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "puli/repository": {
             "install-path": "vendor/puli/repository",
@@ -257,8 +252,7 @@
         },
         "symfony/event-dispatcher": {
             "install-path": "vendor/symfony/event-dispatcher",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "symfony/filesystem": {
             "install-path": "vendor/symfony/filesystem",
@@ -287,8 +281,7 @@
         },
         "webmozart/console": {
             "install-path": "vendor/webmozart/console",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "webmozart/expression": {
             "install-path": "vendor/webmozart/expression",
