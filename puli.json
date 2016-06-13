@@ -69,6 +69,11 @@
             "install-path": "vendor/mtdowling/cron-expression",
             "installer": "composer"
         },
+        "myclabs/deep-copy": {
+            "install-path": "vendor/myclabs/deep-copy",
+            "installer": "composer",
+            "env": "dev"
+        },
         "padraic/humbug_get_contents": {
             "install-path": "vendor/padraic/humbug_get_contents",
             "installer": "composer"
@@ -118,8 +123,18 @@
             "install-path": "vendor/php-http/promise",
             "installer": "composer"
         },
+        "phpdocumentor/reflection-common": {
+            "install-path": "vendor/phpdocumentor/reflection-common",
+            "installer": "composer",
+            "env": "dev"
+        },
         "phpdocumentor/reflection-docblock": {
             "install-path": "vendor/phpdocumentor/reflection-docblock",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "phpdocumentor/type-resolver": {
+            "install-path": "vendor/phpdocumentor/type-resolver",
             "installer": "composer",
             "env": "dev"
         },
@@ -177,7 +192,8 @@
         },
         "puli/composer-plugin": {
             "install-path": "vendor/puli/composer-plugin",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "puli/discovery": {
             "install-path": "vendor/puli/discovery",
@@ -198,6 +214,11 @@
         "ramsey/uuid": {
             "install-path": "vendor/ramsey/uuid",
             "installer": "composer"
+        },
+        "sebastian/code-unit-reverse-lookup": {
+            "install-path": "vendor/sebastian/code-unit-reverse-lookup",
+            "installer": "composer",
+            "env": "dev"
         },
         "sebastian/comparator": {
             "install-path": "vendor/sebastian/comparator",
@@ -224,8 +245,18 @@
             "installer": "composer",
             "env": "dev"
         },
+        "sebastian/object-enumerator": {
+            "install-path": "vendor/sebastian/object-enumerator",
+            "installer": "composer",
+            "env": "dev"
+        },
         "sebastian/recursion-context": {
             "install-path": "vendor/sebastian/recursion-context",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "sebastian/resource-operations": {
+            "install-path": "vendor/sebastian/resource-operations",
             "installer": "composer",
             "env": "dev"
         },

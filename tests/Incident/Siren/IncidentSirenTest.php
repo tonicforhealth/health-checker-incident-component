@@ -28,7 +28,7 @@ class IncidentSirenTest extends PHPUnit_Framework_TestCase
      */
     public function testConstructorNullSubject()
     {
-        $nTypeIMock = $this->getMock(NotificationTypeInterface::class);
+        $nTypeIMock = $this->getMockBuilder(NotificationTypeInterface::class)->getMock();
 
         $this->setIncidentSiren(new IncidentSiren($nTypeIMock));
 
@@ -40,7 +40,7 @@ class IncidentSirenTest extends PHPUnit_Framework_TestCase
      */
     public function testUpdate()
     {
-        $nTypeIMock = $this->getMock(NotificationTypeInterface::class);
+        $nTypeIMock = $this->getMockBuilder(NotificationTypeInterface::class)->getMock();
 
         $subjectC = new SubjectCollection();
 
@@ -61,7 +61,7 @@ class IncidentSirenTest extends PHPUnit_Framework_TestCase
      */
     public function testNotifyCatchException()
     {
-        $nTypeIMock = $this->getMock(NotificationTypeInterface::class);
+        $nTypeIMock = $this->getMockBuilder(NotificationTypeInterface::class)->getMock();
 
         $subjectC = new SubjectCollection();
 

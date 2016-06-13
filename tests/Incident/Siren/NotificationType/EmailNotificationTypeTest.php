@@ -71,7 +71,7 @@ class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
 
         $subject = $this->createSubject('subject@test.com', '* * * * *');
 
-        $mailerTransport = $this->getMock(Swift_Transport::class);
+        $mailerTransport = $this->getMockBuilder(Swift_Transport::class)->getMock();
 
         $mailerTransport->expects($this->once())->method('stop');
 

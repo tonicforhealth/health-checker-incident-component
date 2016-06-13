@@ -82,14 +82,14 @@ class RequestNotificationTypeTest extends PHPUnit_Framework_TestCase
 
         $subject = $this->createSubject('target', '* * * * *');
 
-        $streamMock = $this->getMock(StreamInterface::class);
+        $streamMock = $this->getMockBuilder(StreamInterface::class)->getMock();
 
         $streamMock
             ->expects($this->once())
             ->method('getContents')
             ->willReturn('{"data":{"id":22}}');
 
-        $response = $this->getMock(ResponseInterface::class);
+        $response = $this->getMockBuilder(ResponseInterface::class)->getMock();
 
         $response->expects($this->once())->method('getBody')->willReturn($streamMock);
 

@@ -52,7 +52,7 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
     {
         $argsMock = $this->createEventArgsMock(PreUpdateEventArgs::class);
 
-        $entity = $this->getMock(IncidentInterface::class);
+        $entity = $this->getMockBuilder(IncidentInterface::class)->getMock();
 
         $argsMock
             ->expects($this->once())
@@ -77,7 +77,7 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
     {
         $argsMock = $this->createEventArgsMock(LifecycleEventArgs::class);
 
-        $entity = $this->getMock(IncidentInterface::class);
+        $entity = $this->getMockBuilder(IncidentInterface::class)->getMock();
 
         $argsMock
             ->expects($this->once())
