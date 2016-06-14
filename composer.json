@@ -1,6 +1,6 @@
 {
     "name": "tonicforhealth/health-checker-incident-component",
-    "description": "Health checker incident component",
+    "description": "Health checker incident component provides classes for health checker incident app",
     "type": "library",
     "license": "MIT",
     "authors": [
