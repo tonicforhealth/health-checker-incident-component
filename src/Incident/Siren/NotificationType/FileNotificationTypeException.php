@@ -3,7 +3,7 @@
 namespace TonicHealthCheck\Incident\Siren\NotificationType;
 
 /**
- * Class FileNotificationTypeExeption
+ * Class FileNotificationTypeExeption.
  */
 class FileNotificationTypeException extends \Exception
 {

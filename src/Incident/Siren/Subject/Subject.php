@@ -5,7 +5,7 @@ namespace TonicHealthCheck\Incident\Siren\Subject;
 use Cron\CronExpression;
 
 /**
- * Class Subject
+ * Class Subject.
  */
 class Subject implements SubjectInterface
 {

@@ -8,7 +8,7 @@ use TonicHealthCheck\Incident\IncidentInterface;
 use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
 
 /**
- * Class EmailNotificationType
+ * Class EmailNotificationType.
  */
 class EmailNotificationType implements NotificationTypeInterface
 {

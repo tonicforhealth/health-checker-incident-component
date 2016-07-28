@@ -8,7 +8,7 @@ use TonicHealthCheck\Incident\IncidentInterface;
 use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
 
 /**
- * Class RequestNotificationType
+ * Class RequestNotificationType.
  */
 class RequestNotificationType implements NotificationTypeInterface
 {

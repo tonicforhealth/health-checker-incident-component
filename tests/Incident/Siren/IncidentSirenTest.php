@@ -12,7 +12,7 @@ use TonicHealthCheck\Incident\Siren\Subject\SubjectCollection;
 use TonicHealthCheck\Test\Incident\Subject\SubjectCreateTrait;
 
 /**
- * Class IncidentEventSubscriber
+ * Class IncidentEventSubscriber.
  */
 class IncidentSirenTest extends PHPUnit_Framework_TestCase
 {
@@ -24,7 +24,7 @@ class IncidentSirenTest extends PHPUnit_Framework_TestCase
     private $incidentSiren;
 
     /**
-     * Test constructor create new SubjectCollection if $subjects skiped
+     * Test constructor create new SubjectCollection if $subjects skiped.
      */
     public function testConstructorNullSubject()
     {
@@ -36,7 +36,7 @@ class IncidentSirenTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test receive update from subject
+     * test receive update from subject.
      */
     public function testUpdate()
     {
@@ -54,7 +54,7 @@ class IncidentSirenTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test receive update from subject
+     * test receive update from subject.
      *
      * @expectedException PHPUnit_Framework_Error_Warning
      * @expectedExceptionMessage Test exception message

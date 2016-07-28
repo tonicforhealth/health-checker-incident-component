@@ -6,7 +6,7 @@ use TonicHealthCheck\Incident\IncidentInterface;
 use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
 
 /**
- * Class FileNotificationType
+ * Class FileNotificationType.
  */
 class FileNotificationType implements NotificationTypeInterface
 {

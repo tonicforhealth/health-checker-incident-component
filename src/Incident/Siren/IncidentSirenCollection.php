@@ -5,7 +5,7 @@ namespace TonicHealthCheck\Incident\Siren;
 use Collections\Collection;
 
 /**
- * Class IncidentSirenCollection
+ * Class IncidentSirenCollection.
  */
 class IncidentSirenCollection extends Collection
 {

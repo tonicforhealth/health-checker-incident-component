@@ -11,7 +11,7 @@ use TonicHealthCheck\Incident\Siren\Subject\SubjectCollection;
 use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
 
 /**
- * Class IncidentSiren
+ * Class IncidentSiren.
  */
 class IncidentSiren implements \SplObserver
 {
@@ -23,7 +23,7 @@ class IncidentSiren implements \SplObserver
     protected $notificationTypeI;
 
     /**
-     * email or tel numbers
+     * email or tel numbers.
      *
      * @var SubjectCollection
      */
@@ -45,7 +45,7 @@ class IncidentSiren implements \SplObserver
     }
 
     /**
-     * Receive update from subject
+     * Receive update from subject.
      *
      * @link http://php.net/manual/en/splobserver.update.php
      *
@@ -53,14 +53,12 @@ class IncidentSiren implements \SplObserver
      *                            The <b>SplSubject</b> notifying the observer of an update.
      *                            </p>
      *
-     * @return void
-     *
      * @since 5.1.0
      */
     public function update(SplSubject $subject)
     {
         if ($subject instanceof IncidentInterface) {
-            /** @var IncidentInterface $subject */
+            /* @var IncidentInterface $subject */
                 $this->notify($subject);
         }
     }

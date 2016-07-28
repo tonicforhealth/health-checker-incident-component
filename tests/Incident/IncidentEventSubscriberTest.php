@@ -15,7 +15,7 @@ use TonicHealthCheck\Incident\Siren\NotificationType\FileNotificationType;
 use TonicHealthCheck\Incident\Siren\NotificationType\RequestNotificationType;
 
 /**
- * Class IncidentEventSubscriber
+ * Class IncidentEventSubscriber.
  */
 class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
 {
@@ -30,7 +30,7 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
     private $incidentSirenC;
 
     /**
-     * set up base dependency
+     * set up base dependency.
      */
     public function setUp()
     {
@@ -46,7 +46,7 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test PreUpdate
+     * Test PreUpdate.
      */
     public function testPreUpdate()
     {
@@ -71,7 +71,7 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test PreUpdate
+     * Test PreUpdate.
      */
     public function testPrePersist()
     {
@@ -90,7 +90,7 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get subscribed events
+     * Test get subscribed events.
      */
     public function testGetSubscribedEvents()
     {
@@ -160,6 +160,7 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
 
     /**
      * @param $eventArgsClassName
+     *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
     protected function createEventArgsMock($eventArgsClassName)

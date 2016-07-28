@@ -23,7 +23,7 @@ class TokenTest extends PHPUnit_Framework_TestCase
     private $token;
 
     /**
-     * Test that Authenticate set header
+     * Test that Authenticate set header.
      */
     public function testAuthenticate()
     {

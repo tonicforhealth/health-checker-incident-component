@@ -13,7 +13,7 @@ use TonicHealthCheck\Test\Incident\IncidentCreateTrait;
 use TonicHealthCheck\Test\Incident\Subject\SubjectCreateTrait;
 
 /**
- * Class EmailNotificationTypeTest
+ * Class EmailNotificationTypeTest.
  */
 class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -40,7 +40,7 @@ class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
     private $mailNType;
 
     /**
-     * set base env for test EmailNotificationTypeTest
+     * set base env for test EmailNotificationTypeTest.
      */
     public function setUp()
     {
@@ -61,7 +61,7 @@ class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test email notify ok
+     * test email notify ok.
      */
     public function testNotify()
     {

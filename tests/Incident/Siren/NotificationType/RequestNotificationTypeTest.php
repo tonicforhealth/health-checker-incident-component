@@ -15,7 +15,7 @@ use TonicHealthCheck\Test\Incident\IncidentCreateTrait;
 use TonicHealthCheck\Test\Incident\Subject\SubjectCreateTrait;
 
 /**
- * Class RequestNotificationTypeTest
+ * Class RequestNotificationTypeTest.
  */
 class RequestNotificationTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -43,7 +43,7 @@ class RequestNotificationTypeTest extends PHPUnit_Framework_TestCase
     private $resourceUrl = '/incident';
 
     /**
-     * set up base env Request type test
+     * set up base env Request type test.
      */
     public function setUp()
     {
@@ -67,7 +67,7 @@ class RequestNotificationTypeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test request notify create
+     * Test request notify create.
      */
     public function testNotifyCreate()
     {
@@ -114,7 +114,7 @@ class RequestNotificationTypeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test request notify update
+     * Test request notify update.
      */
     public function testNotifyUpdate()
     {

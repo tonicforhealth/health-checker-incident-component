@@ -3,7 +3,7 @@
 namespace TonicHealthCheck\Incident;
 
 /**
- * Interface IncidentInterface
+ * Interface IncidentInterface.
  */
 interface IncidentInterface extends \SplSubject
 {
@@ -53,28 +53,28 @@ interface IncidentInterface extends \SplSubject
     public function setStatus($status);
 
     /**
-     * Get externalId
+     * Get externalId.
      *
      * @return int
      */
     public function getExternalId();
 
     /**
-     * Set externalId
+     * Set externalId.
      *
      * @param int $externalId
      */
     public function setExternalId($externalId);
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
     public function getType();
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
      */

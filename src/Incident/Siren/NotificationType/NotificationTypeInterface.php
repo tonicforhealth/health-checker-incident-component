@@ -6,7 +6,7 @@ use TonicHealthCheck\Incident\IncidentInterface;
 use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
 
 /**
- * Interface NotificationTypeInterface
+ * Interface NotificationTypeInterface.
  */
 interface NotificationTypeInterface
 {

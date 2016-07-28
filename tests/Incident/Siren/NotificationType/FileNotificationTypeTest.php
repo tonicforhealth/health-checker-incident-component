@@ -9,7 +9,7 @@ use TonicHealthCheck\Test\Incident\IncidentCreateTrait;
 use TonicHealthCheck\Test\Incident\Subject\SubjectCreateTrait;
 
 /**
- * Class FileNotificationTypeTest
+ * Class FileNotificationTypeTest.
  */
 class FileNotificationTypeTest extends PHPUnit_Framework_TestCase
 {
@@ -27,7 +27,7 @@ class FileNotificationTypeTest extends PHPUnit_Framework_TestCase
     private $fileNType;
 
     /**
-     * set up file notification env
+     * set up file notification env.
      */
     public function setUp()
     {
@@ -37,7 +37,7 @@ class FileNotificationTypeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test email notify ok
+     * test email notify ok.
      */
     public function testNotify()
     {
@@ -53,7 +53,7 @@ class FileNotificationTypeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Message Not Writable throw Exception
+     * Test Message Not Writable throw Exception.
      *
      * @expectedException \TonicHealthCheck\Incident\Siren\NotificationType\FileNotificationTypeException
      * @expectedExceptionMessage Notification directory /test343/tes232 doesn't writable
