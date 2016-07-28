@@ -192,8 +192,7 @@
         },
         "puli/composer-plugin": {
             "install-path": "vendor/puli/composer-plugin",
-            "installer": "composer",
-            "env": "dev"
+            "installer": "composer"
         },
         "puli/discovery": {
             "install-path": "vendor/puli/discovery",
@@ -301,6 +300,10 @@
             "install-path": "vendor/symfony/yaml",
             "installer": "composer",
             "env": "dev"
+        },
+        "tonicforhealth/pagerduty-client": {
+            "install-path": "vendor/tonicforhealth/pagerduty-client",
+            "installer": "composer"
         },
         "webmozart/assert": {
             "install-path": "vendor/webmozart/assert",

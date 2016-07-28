@@ -10,10 +10,11 @@ use TonicHealthCheck\Incident\Siren\IncidentSiren;
 use TonicHealthCheck\Incident\Siren\IncidentSirenCollection;
 use TonicHealthCheck\Incident\Siren\NotificationType\EmailNotificationType;
 use TonicHealthCheck\Incident\Siren\NotificationType\FileNotificationType;
+use TonicHealthCheck\Incident\Siren\NotificationType\PagerDutyNotificationType;
 use TonicHealthCheck\Incident\Siren\NotificationType\RequestNotificationType;
 
 /**
- * Class IncidentEventSubscriber
+ * Class IncidentEventSubscriber.
  */
 class IncidentEventSubscriber implements EventSubscriber
 {
@@ -22,6 +23,7 @@ class IncidentEventSubscriber implements EventSubscriber
             EmailNotificationType::class,
             FileNotificationType::class,
             RequestNotificationType::class,
+            PagerDutyNotificationType::class,
         ],
         IncidentInterface::TYPE_WARNING => [
             EmailNotificationType::class,
