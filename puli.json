@@ -51,15 +51,18 @@
         },
         "guzzlehttp/guzzle": {
             "install-path": "vendor/guzzlehttp/guzzle",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "guzzlehttp/promises": {
             "install-path": "vendor/guzzlehttp/promises",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "guzzlehttp/psr7": {
             "install-path": "vendor/guzzlehttp/psr7",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "justinrainbow/json-schema": {
             "install-path": "vendor/justinrainbow/json-schema",
@@ -76,11 +79,13 @@
         },
         "padraic/humbug_get_contents": {
             "install-path": "vendor/padraic/humbug_get_contents",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "padraic/phar-updater": {
             "install-path": "vendor/padraic/phar-updater",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "paragonie/random_compat": {
             "install-path": "vendor/paragonie/random_compat",
@@ -96,7 +101,8 @@
         },
         "php-http/guzzle6-adapter": {
             "install-path": "vendor/php-http/guzzle6-adapter",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "php-http/httplug": {
             "install-path": "vendor/php-http/httplug",
@@ -188,7 +194,8 @@
         },
         "puli/cli": {
             "install-path": "vendor/puli/cli",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "puli/composer-plugin": {
             "install-path": "vendor/puli/composer-plugin",
@@ -200,7 +207,8 @@
         },
         "puli/manager": {
             "install-path": "vendor/puli/manager",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "puli/repository": {
             "install-path": "vendor/puli/repository",
@@ -278,7 +286,8 @@
         },
         "symfony/event-dispatcher": {
             "install-path": "vendor/symfony/event-dispatcher",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "symfony/filesystem": {
             "install-path": "vendor/symfony/filesystem",
@@ -311,7 +320,8 @@
         },
         "webmozart/console": {
             "install-path": "vendor/webmozart/console",
-            "installer": "composer"
+            "installer": "composer",
+            "env": "dev"
         },
         "webmozart/expression": {
             "install-path": "vendor/webmozart/expression",
