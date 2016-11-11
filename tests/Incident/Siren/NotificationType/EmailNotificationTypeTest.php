@@ -167,7 +167,7 @@ class EmailNotificationTypeTest extends PHPUnit_Framework_TestCase
             ->setTo($subject->getTarget())
             ->setFrom($this->getFrom(), $this->getFromName())
             ->setSubject(sprintf(EmailNotificationType::EMAIL_SUBJECT_T, $incident->getIdent()))
-            ->setBody(sprintf(EmailNotificationType::EMAIL_BODY_T, $incident->getMessage()));
+            ->setBody(sprintf(EmailNotificationType::EMAIL_BODY_T, $incident->getMessage(), $incident->getType()));
 
         return $message;
     }
