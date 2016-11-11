@@ -68,7 +68,9 @@ class IncidentEventSubscriber implements EventSubscriber
     {
         $entity = $args->getObject();
 
-        if ($entity instanceof IncidentInterface && $args->hasChangedField('status')) {
+        if ($entity instanceof IncidentInterface
+            && ( $args->hasChangedField('status') || $args->hasChangedField('type'))
+        ) {
             $this->preUpdateIncidentStatus($entity);
             $entity->notify();
         }
