@@ -12,7 +12,7 @@ use TonicHealthCheck\Incident\Siren\Subject\SubjectInterface;
  */
 class EmailNotificationType implements NotificationTypeInterface
 {
-    const EMAIL_BODY_T = '%s';
+    const EMAIL_BODY_T = "IncidentMessage:%s\nIncidentType:%s";
     const EMAIL_SUBJECT_T = 'Health Check Incident:%s';
 
     /**
@@ -55,7 +55,7 @@ class EmailNotificationType implements NotificationTypeInterface
                 ->setTo($subject->getTarget())
                 ->setFrom($this->getFrom(), $this->getFromName())
                 ->setSubject(sprintf(self::EMAIL_SUBJECT_T, $incident->getIdent()))
-                ->setBody(sprintf(self::EMAIL_BODY_T, $incident->getMessage()));
+                ->setBody(sprintf(self::EMAIL_BODY_T, $incident->getMessage(), $incident->getType()));
             $this->getMailer()->send($message);
             $this->getMailer()->getTransport()->stop();
         }
