@@ -42,12 +42,22 @@ class PagerDutyNotificationType implements NotificationTypeInterface
      */
     public function notify(SubjectInterface $subject, IncidentInterface $incident)
     {
+        $event = new Event();
+        $event->serviceKey = $this->getServiceKey();
+        $event->incidentKey = sprintf('hci_%d', $incident->getId());
         if ($incident->getStatus() != IncidentInterface::STATUS_OK) {
-            $event = new Event();
-            $event->serviceKey = $this->getServiceKey();
-            $event->description = $incident->getMessage();
-            $this->getEventClient()->post($event);
+            $event->description = $incident->getIdent();
+            $event->eventType = Event::EVENT_TYPE_TRIGGER;
+            $event->details = [
+                'log' => $incident->getMessage(),
+                'status' => $incident->getStatus(),
+                'type' => $incident->getType(),
+                'id' => $incident->getId(),
+            ];
+        } else {
+            $event->eventType = Event::EVENT_TYPE_RESOLVE;
         }
+        $this->getEventClient()->post($event);
     }
 
     /**

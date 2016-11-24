@@ -3,13 +3,14 @@
 namespace TonicHealthCheck\Incident;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Doctrine\ORM\Events;
+use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\Events;;
+use Doctrine\ORM\UnitOfWork;
 use TonicHealthCheck\Incident\Siren\IncidentSiren;
 use TonicHealthCheck\Incident\Siren\IncidentSirenCollection;
 use TonicHealthCheck\Incident\Siren\NotificationType\EmailNotificationType;
 use TonicHealthCheck\Incident\Siren\NotificationType\FileNotificationType;
+use TonicHealthCheck\Incident\Siren\NotificationType\NotificationTypeInterface;
 use TonicHealthCheck\Incident\Siren\NotificationType\PagerDutyNotificationType;
 use TonicHealthCheck\Incident\Siren\NotificationType\RequestNotificationType;
 
@@ -56,35 +57,24 @@ class IncidentEventSubscriber implements EventSubscriber
     public function getSubscribedEvents()
     {
         return array(
-            Events::preUpdate,
-            Events::prePersist,
+            Events::onFlush,
         );
     }
 
     /**
-     * @param PreUpdateEventArgs $args
+     * @param OnFlushEventArgs $eventArgs
      */
-    public function preUpdate(PreUpdateEventArgs $args)
+    public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        $entity = $args->getObject();
+        $entityM = $eventArgs->getEntityManager();
+        $uow = $entityM->getUnitOfWork();
+        $updates = $uow->getScheduledEntityUpdates();
 
-        if ($entity instanceof IncidentInterface
-            && ( $args->hasChangedField('status') || $args->hasChangedField('type'))
-        ) {
-            $this->preUpdateIncidentStatus($entity);
-            $entity->notify();
-        }
-    }
-
-    /**
-     * @param LifecycleEventArgs $args
-     */
-    public function prePersist(LifecycleEventArgs $args)
-    {
-        $entity = $args->getObject();
-        if ($entity instanceof IncidentInterface && $entity->getId() === null) {
-            $this->preUpdateIncidentStatus($entity);
-            $entity->notify();
+        foreach ($updates as $entity) {
+            /** @var IncidentInterface $entity */
+            if ($entity instanceof IncidentInterface) {
+                $this->preFlushIncident($uow, $entity);
+            }
         }
     }
 
@@ -115,17 +105,19 @@ class IncidentEventSubscriber implements EventSubscriber
                 && $this->checkIsNotificationAllow($entity->getType(), $incidentI->getNotificationTypeI())
             ) {
                 $entity->attach($incidentI);
+            } else {
+                $entity->detach($incidentI);
             }
         }
     }
 
     /**
-     * @param $type
-     * @param $notificationTypeI
+     * @param string $type
+     * @param NotificationTypeInterface $notificationTypeI
      *
      * @return bool
      */
-    protected function checkIsNotificationAllow($type, $notificationTypeI)
+    protected function checkIsNotificationAllow($type, NotificationTypeInterface $notificationTypeI)
     {
         $isNotificationAllow = false;
 
@@ -137,5 +129,18 @@ class IncidentEventSubscriber implements EventSubscriber
         }
 
         return $isNotificationAllow;
+    }
+
+    /**
+     * @param UnitOfWork $uow
+     * @param IncidentInterface $entity
+     */
+    protected function preFlushIncident(UnitOfWork $uow, IncidentInterface $entity)
+    {
+        $changeSet = $uow->getEntityChangeSet($entity);
+        if (array_key_exists('status', $changeSet) || array_key_exists('type', $changeSet)) {
+            $this->preUpdateIncidentStatus($entity);
+            $entity->notify();
+        }
     }
 }

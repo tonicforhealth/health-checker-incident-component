@@ -2,9 +2,10 @@
 
 namespace TonicHealthCheck\Test\Incident;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\ORM\UnitOfWork;
 use PHPUnit_Framework_TestCase;
 use TonicHealthCheck\Incident\IncidentEventSubscriber;
 use TonicHealthCheck\Incident\IncidentInterface;
@@ -46,47 +47,53 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test PreUpdate.
+     * Test onFlush.
      */
-    public function testPreUpdate()
+    public function testOnFlush()
     {
-        $argsMock = $this->createEventArgsMock(PreUpdateEventArgs::class);
+        $argsMock = $this->createEventArgsMock(OnFlushEventArgs::class);
 
         $entity = $this->getMockBuilder(IncidentInterface::class)->getMock();
 
-        $argsMock
+        $entityMinor = $this->getMockBuilder(IncidentInterface::class)->getMock();
+
+        $entityMinor
+            ->expects($this->any())
+            ->method('getType')
+            ->willReturn(IncidentInterface::TYPE_MINOR);
+
+
+        $unitOfWork = $this->getMockBuilder(UnitOfWork::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $unitOfWork
             ->expects($this->once())
-            ->method('getObject')
-            ->willReturn($entity);
+            ->method('getScheduledEntityUpdates')
+            ->willReturn([$entity, $entityMinor]);
+
+        $unitOfWork
+            ->expects($this->any())
+            ->method('getEntityChangeSet')
+            ->willReturn(['status' => 234]);
+
+        $entityManager = $this->getMockBuilder(EntityManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $entityManager
+            ->expects($this->once())
+            ->method('getUnitOfWork')
+            ->willReturn($unitOfWork);
 
         $argsMock
             ->expects($this->once())
-            ->method('hasChangedField')
-            ->with('status')
-            ->willReturn(true);
+            ->method('getEntityManager')
+            ->willReturn($entityManager);
 
         $this->setUpExpectsForEntity($entity);
 
-        $this->getIncidentEventSubscriber()->preUpdate($argsMock);
-    }
-
-    /**
-     * Test PreUpdate.
-     */
-    public function testPrePersist()
-    {
-        $argsMock = $this->createEventArgsMock(LifecycleEventArgs::class);
-
-        $entity = $this->getMockBuilder(IncidentInterface::class)->getMock();
-
-        $argsMock
-            ->expects($this->once())
-            ->method('getObject')
-            ->willReturn($entity);
-
-        $this->setUpExpectsForEntity($entity);
-
-        $this->getIncidentEventSubscriber()->prePersist($argsMock);
+        $this->getIncidentEventSubscriber()->onFlush($argsMock);
     }
 
     /**
@@ -97,8 +104,7 @@ class IncidentEventSubscriberTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $this->getIncidentEventSubscriber()->getSubscribedEvents(),
             [
-                Events::preUpdate,
-                Events::prePersist,
+                Events::onFlush,
             ]
         );
     }
